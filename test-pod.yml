@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dumb-device-test
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - image: alpine
+    name: dumb-device-test-ctr
+    resources:
+      requests:
+        github.com/everpeace.dumb-device: 3
+      limits:
+        github.com/everpeace.dumb-device: 3
+    command:
+    - sh
+    - -c
+    - |
+      od -vAn -N4 -tu4 < /dev/dumb-0
+      od -vAn -N4 -tu4 < /dev/dumb-1
+      od -vAn -N4 -tu4 < /dev/dumb-2
+      sleep 1000000
